@@ -26,7 +26,7 @@ class SudokuPuzzle(Puzzle):
         assert len(symbol_set) == n
         assert (len(symbols) * len(symbols[0])) == n ** 2
         assert all([len(symbols[i]) == n for i in range(len(symbols))])
-        
+
         self._n, self._symbols, self._symbol_set = n, symbols, symbol_set
 
     def __eq__(self, other):
@@ -168,14 +168,14 @@ class SudokuPuzzle(Puzzle):
             while "*" not in symbols[r]:
                 r += 1
             c = symbols[r].index("*") # column with first empty position
-            
+
             # allowed symbols at position (r, c)
             # A | B == A.union(B)
             allowed_symbols = (self._symbol_set -
                                (self._row_set(r) |
                                 self._column_set(c) |
                                 self._subsquare_set(r, c)))
-            
+
             # list of SudokuPuzzles with each legal digit at position i
             return_lst = []
             for symbol in allowed_symbols:
@@ -184,7 +184,7 @@ class SudokuPuzzle(Puzzle):
                                           symbols[r+1:], symbol_set)
                 return_lst.append(new_puzzle)
             return return_lst
-        
+
     # TODO
     # override fail_fast
     # Notice that it is not possible to complete a sudoku puzzle if there
@@ -214,9 +214,20 @@ class SudokuPuzzle(Puzzle):
         True
         """
 
-        # TODO: Complete this method
-        pass
-    
+        grid = self._symbols
+
+        for r in range(len(grid)):
+            for c in range(len(grid[r])):
+                if grid[r][c] == "*":
+
+                    allowed_symbols = (self._symbol_set -
+                                       (self._row_set(r) |
+                                        self._column_set(c) |
+                                        self._subsquare_set(r, c)))
+                    if len(allowed_symbols) == 0:
+                        return True
+        return False
+
     # some helper methods
     def _row_set(self, r):
         #
@@ -235,7 +246,7 @@ class SudokuPuzzle(Puzzle):
         #
         # @type self: SudokuPuzzle
         # @type c: int
-        
+
         # set of elements from symbols[0][c], symbols[1][c],
         # ... symbols[len(symbols)-1][c]
         return set([row[c] for row in self._symbols])
@@ -265,6 +276,21 @@ class SudokuPuzzle(Puzzle):
 if __name__ == "__main__":
     import doctest
 
+    s = SudokuPuzzle(4, \
+    [["A", "B", "C", "D"], \
+    ["C", "D", "*", "*"], \
+    ["*", "*", "*", "*"], \
+    ["*", "*", "*", "*"]], {"A", "B", "C", "D"})
+    print(s.fail_fast())
+
+    s = SudokuPuzzle(4, \
+    [["B", "D", "A", "C"], \
+    ["C", "A", "B", "D"], \
+    ["A", "B", "*", "*"], \
+    ["*", "*", "*", "*"]], {"A", "B", "C", "D"})
+    print(s.fail_fast())
+
+    """
     doctest.testmod()
     s = SudokuPuzzle(9,
                      [["*", "*", "*", "7", "*", "8", "*", "1", "*"],
@@ -293,7 +319,6 @@ if __name__ == "__main__":
           "{} seconds\n".format(end - start))
     print(sol)
 
-    """
     s = SudokuPuzzle(9,
                      [["*", "*", "*", "9", "*", "2", "*", "*", "*"],
                       ["*", "9", "1", "*", "*", "*", "6", "3", "*"],
@@ -343,5 +368,5 @@ if __name__ == "__main__":
     print(sol)
     """
 
-    
+
     # TEEEEEEEEEEESTTT i'm gonna make a comment here as an example of making LOCAL CHANGES

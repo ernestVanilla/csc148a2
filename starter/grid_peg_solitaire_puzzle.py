@@ -23,37 +23,87 @@ class GridPegSolitairePuzzle(Puzzle):
         assert all([all(x in marker_set for x in row) for row in marker])
         assert all([x == "*" or x == "." or x == "#" for x in marker_set])
         self._marker, self._marker_set = marker, marker_set
+        
+    def __eq__(self, other):
+        return (self.marker == other.marker)
+    
+    def __str__(self):
+        pass
 
     # TODO
     # implement __eq__, __str__ methods
     # __repr__ is up to you
-
-    # TODO
-    # override extensions
-    # legal extensions consist of all configurations that can be reached by
-    # making a single jump from this configuration
+    
+    def extentions(self):
+        
+        grid = self.marker_set
+        
+        for row in range(len(grid)):
+            
+            for column in range(len(grid[row])):
+                
+                if grid[row][column] == "*":
+                    
+                    # Check for top if inbounds & if the item directly above it is a peg
+                    if grid[row - 2][column] > 0 and grid[row - 1][column] == "*":
+                        
+                        if grid[row - 2][column] ==".":
+                            
+                            grid[row - 2][column] = "*"
+                            grid[row - 1][column] = "."
+                            grid[row][column] = "."
+                    
+                    # Check for bottom if inbounds & if the item directly below it is a peg
+                    if grid[row + 2][column] < len(grid) and grid[row + 1][column] == "*":
+                        
+                        if grid[row + 2][column] == ".":
+                            
+                            grid[row + 2][column] = "*"
+                            grid[row + 1][column] = "."
+                            grid[row][column] = "."
+                            
+                    # Check for left if inbounds & if the item directly beside it is a peg
+                    if grid[row][column - 2] > 0 and grid[row][column - 1] == "*":
+                        
+                        if grid[row][column - 2] == ".":
+                            
+                            grid[row][column - 2] = "*"
+                            grid[row][column - 1] = "."
+                            grid[row][column] = "."
+                            
+                    # Check for right if inbounds & if the item directly beside it is a peg
+                    if grid[row][column + 2] < len(grid[row]) and grid[row][column + 1] == "*":
+                        
+                        if grid[row][column + 2] == ".":
+                            
+                            grid[row][column + 2] = "*"
+                            grid[row][column + 1] = "."
+                            grid[row][column] == "."
+                            
+    def is_solved(self):
+        pass
 
     # TODO
     # override is_solved
     # A configuration is solved when there is exactly one "*" left
 
 
-if __name__ == "__main__":
-    import doctest
+#if __name__ == "__main__":
+    #import doctest
 
-    doctest.testmod()
-    from puzzle_tools import depth_first_solve
+    #doctest.testmod()
+    #from puzzle_tools import depth_first_solve
 
-    grid = [["*", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "*"],
-            ["*", "*", "*", "*", "*"],
-            ["*", "*", ".", "*", "*"],
-            ["*", "*", "*", "*", "*"]]
-    gpsp = GridPegSolitairePuzzle(grid, {"*", ".", "#"})
-    import time
+    #grid = [["*", "*", "*", "*", "*"],
+            #["*", "*", "*", "*", "*"],
+            #["*", "*", "*", "*", "*"],
+            #["*", "*", ".", "*", "*"],
+            #["*", "*", "*", "*", "*"]]
+    #gpsp = GridPegSolitairePuzzle(grid, {"*", ".", "#"})
+    #import time
 
-    start = time.time()
-    solution = depth_first_solve(gpsp)
-    end = time.time()
-    print("Solved 5x5 peg solitaire in {} seconds.".format(end - start))
-    print("Using depth-first: \n{}".format(solution))
+    #start = time.time()
+    #solution = depth_first_solve(gpsp)
+    #end = time.time()
+    #print("Solved 5x5 peg solitaire in {} seconds.".format(end - start))
+    #print("Using depth-first: \n{}".format(solution))

@@ -36,7 +36,7 @@ class GridPegSolitairePuzzle(Puzzle):
     
     def extentions(self):
         
-        grid = self.marker_set
+        grid = self.marker
         
         for row in range(len(grid)):
             
@@ -78,14 +78,26 @@ class GridPegSolitairePuzzle(Puzzle):
                             
                             grid[row][column + 2] = "*"
                             grid[row][column + 1] = "."
-                            grid[row][column] == "."
+                            grid[row][column] = "."
                             
     def is_solved(self):
-        pass
-
-    # TODO
-    # override is_solved
-    # A configuration is solved when there is exactly one "*" left
+        
+        grid = self.marker
+        
+        count = 0
+        
+        for row in range(len(grid)):
+            
+            for column in range(len(grid[row])):
+                
+                if grid[row][column] == "*":
+                    
+                    count = count + 1
+                    
+        if count == 1:
+            return True
+        else:
+            return False
 
 
 #if __name__ == "__main__":

@@ -40,15 +40,14 @@ class WordLadderPuzzle(Puzzle):
         # setting up variables
         extensions = []
         word = self._from_word
-        length = len(word)
 
         # loops by the number of letters in from_word
-        for letter in range(length):
+        for letter in range(len(word)):
             # loops through the alphabet
             for char in self._chars:
 
                 # constructs new word from 3 parts
-                first = word[:letter-length]
+                first = word[:letter-len(word)]
                 second = word[letter+1:]
                 newWord = first + char + second
 

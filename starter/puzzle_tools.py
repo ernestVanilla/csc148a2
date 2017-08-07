@@ -20,13 +20,24 @@ def depth_first_solve(puzzle):
     """
     Return a path from PuzzleNode(puzzle) to a PuzzleNode containing
     a solution, with each child containing an extension of the puzzle
-    in its parent.  Return None if this is not possible.
+    in its parent. Return None if this is not possible.
 
     @type puzzle: Puzzle
     @rtype: PuzzleNode
     """
-
-
+    root = puzzle.parent
+    
+    children = puzzle.extention
+    
+    if not puzzle:
+        return None
+    
+    for nodes in puzzle.extentions:
+        
+        myPuzNode = PuzzleNode(nodes)
+        
+        
+    
 # TODO
 # implement breadth_first_solve
 # do NOT change the type contract

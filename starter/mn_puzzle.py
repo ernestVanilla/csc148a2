@@ -136,6 +136,11 @@ if __name__ == "__main__":
         print(ext)
     print(p1.is_solved())
 
+    from puzzle_tools import breadth_first_solve, depth_first_solve
+    solution = breadth_first_solve(MNPuzzle(start_grid, target_grid))
+    print("aaaaaaaayy")
+    print(solution)
+
     """
     import doctest
     doctest.testmod()

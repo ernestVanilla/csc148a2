@@ -26,47 +26,30 @@ def depth_first_solve(puzzle):
     @rtype: PuzzleNode
     """
     root = puzzle.parent
-
+    
     children = puzzle.extention
-<<<<<<< HEAD
     
-    stack = deque()
+    #Creating a stack using a deque; putting the root as the first element in the stack
+    stack = deque([PuzzleNode(puzzle, [])])
     
-    tracker = []
+    tracker = set()   
     
-=======
-
->>>>>>> 5cd749809538746831d8d3ec1444beef9159ebc6
-    if not puzzle:
+    # while loop is use to 
+    while len(stack) > 0:
         
-        return None
-
-    for nodes in puzzle.extentions:
-
-        myPuzNode = PuzzleNode(nodes)
-<<<<<<< HEAD
+        new_node = stack.popleft()
         
-        if is_solved(myPuzNode):
-            return myPuzNode
-        
-        stack.appendleft(myPuzNode)
-        
-        tracker.append(myPuzNode)
-    
-    while not len(stack) > 0:
-        
-        chk_var = stack[-1]
-        
-        if chk_var in tracker:
+        for n in new_node.puzzle.extention():
             
-            stack.popleft()
+            node_child = PuzzleNode(n)
             
+            if node_child.puzzle.is_solved():
+                
+                return node_child
+            
+        
     
-=======
 
-
-
->>>>>>> 5cd749809538746831d8d3ec1444beef9159ebc6
 # TODO
 # implement breadth_first_solve
 # do NOT change the type contract

@@ -29,14 +29,33 @@ def depth_first_solve(puzzle):
     
     children = puzzle.extention
     
+    stack = deque()
+    
+    tracker = []
+    
     if not puzzle:
+        
         return None
     
     for nodes in puzzle.extentions:
         
         myPuzNode = PuzzleNode(nodes)
         
+        if is_solved(myPuzNode):
+            return myPuzNode
         
+        stack.appendleft(myPuzNode)
+        
+        tracker.append(myPuzNode)
+    
+    while not len(stack) > 0:
+        
+        chk_var = stack[-1]
+        
+        if chk_var in tracker:
+            
+            stack.popleft()
+            
     
 # TODO
 # implement breadth_first_solve

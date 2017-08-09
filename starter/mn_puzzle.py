@@ -125,23 +125,6 @@ class MNPuzzle(Puzzle):
 
 
 if __name__ == "__main__":
-
-    target_grid = (("1", "2", "3"), ("4", "5", "*"),)
-    start_grid = (("*", "2", "3"), ("1", "4", "5"))
-    p1 = MNPuzzle(start_grid, target_grid)
-    print(p1)
-    print(p1.extensions())
-    e = p1.extensions()
-    for ext in e:
-        print(ext)
-    print(p1.is_solved())
-
-    from puzzle_tools import breadth_first_solve, depth_first_solve
-    solution = breadth_first_solve(MNPuzzle(start_grid, target_grid))
-    print("aaaaaaaayy")
-    print(solution)
-
-    """
     import doctest
     doctest.testmod()
     target_grid = (("1", "2", "3"), ("4", "5", "*"))
@@ -158,4 +141,3 @@ if __name__ == "__main__":
     end = time()
     print("DFS solved: \n\n{} \n\nin {} seconds".format(
         solution, end - start))
-    """

@@ -73,21 +73,9 @@ if __name__ == '__main__':
     doctest.testmod()
     from puzzle_tools import breadth_first_solve, depth_first_solve
     from time import time
-
-    ### TESTING ###
     with open("words", "r") as words:
-    # this code below is so it runs and works on my machine - Ernest Vanilla
-    #with open("C:/Users/Ernest/Desktop/3rd Year/summer/CSC148/githubA2/csc148a2/starter/words", "r") as words:
         word_set = set(words.read().split())
     w = WordLadderPuzzle("same", "cost", word_set)
-    w2 = WordLadderPuzzle("same", "cost", word_set)
-    print(w.extensions())
-    print(w == w2)
-    print(w)
-    print(w2)
-
-    ### STARTER CODE ###
-    """
     start = time()
     sol = breadth_first_solve(w)
     end = time()
@@ -100,4 +88,3 @@ if __name__ == '__main__':
     print("Solving word ladder from same->cost")
     print("...using depth-first-search")
     print("Solutions: {} took {} seconds.".format(sol, end - start))
-    """

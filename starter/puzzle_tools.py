@@ -28,45 +28,16 @@ def depth_first_solve(puzzle):
     root = puzzle.parent
 
     children = puzzle.extention
-<<<<<<< HEAD
-    
-    stack = deque()
-    
-    tracker = []
-    
-=======
 
->>>>>>> 5cd749809538746831d8d3ec1444beef9159ebc6
     if not puzzle:
-        
         return None
 
     for nodes in puzzle.extentions:
 
         myPuzNode = PuzzleNode(nodes)
-<<<<<<< HEAD
-        
-        if is_solved(myPuzNode):
-            return myPuzNode
-        
-        stack.appendleft(myPuzNode)
-        
-        tracker.append(myPuzNode)
-    
-    while not len(stack) > 0:
-        
-        chk_var = stack[-1]
-        
-        if chk_var in tracker:
-            
-            stack.popleft()
-            
-    
-=======
 
 
 
->>>>>>> 5cd749809538746831d8d3ec1444beef9159ebc6
 # TODO
 # implement breadth_first_solve
 # do NOT change the type contract

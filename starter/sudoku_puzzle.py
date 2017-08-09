@@ -276,21 +276,6 @@ class SudokuPuzzle(Puzzle):
 if __name__ == "__main__":
     import doctest
 
-    s = SudokuPuzzle(4, \
-    [["A", "B", "C", "D"], \
-    ["C", "D", "*", "*"], \
-    ["*", "*", "*", "*"], \
-    ["*", "*", "*", "*"]], {"A", "B", "C", "D"})
-    print(s.fail_fast())
-
-    s = SudokuPuzzle(4, \
-    [["B", "D", "A", "C"], \
-    ["C", "A", "B", "D"], \
-    ["A", "B", "*", "*"], \
-    ["*", "*", "*", "*"]], {"A", "B", "C", "D"})
-    print(s.fail_fast())
-
-    """
     doctest.testmod()
     s = SudokuPuzzle(9,
                      [["*", "*", "*", "7", "*", "8", "*", "1", "*"],
@@ -319,6 +304,7 @@ if __name__ == "__main__":
           "{} seconds\n".format(end - start))
     print(sol)
 
+    """
     s = SudokuPuzzle(9,
                      [["*", "*", "*", "9", "*", "2", "*", "*", "*"],
                       ["*", "9", "1", "*", "*", "*", "6", "3", "*"],
@@ -367,6 +353,3 @@ if __name__ == "__main__":
         end - start))
     print(sol)
     """
-
-
-    # TEEEEEEEEEEESTTT i'm gonna make a comment here as an example of making LOCAL CHANGES

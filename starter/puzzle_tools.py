@@ -26,7 +26,6 @@ def depth_first_solve(puzzle):
     @rtype: PuzzleNode
     """
     root = puzzle.parent
-<<<<<<< HEAD
     
     children = puzzle.extention
     
@@ -47,22 +46,7 @@ def depth_first_solve(puzzle):
             if node_child.puzzle.is_solved():
                 
                 return node_child
-            
-        
-    
-=======
 
-    children = puzzle.extention
-
-    if not puzzle:
-        return None
-
-    for nodes in puzzle.extentions:
-
-        myPuzNode = PuzzleNode(nodes)
-
-
->>>>>>> d84c0c7459e37c6ace59dcd913818eaca6ea625c
 
 # TODO
 # implement breadth_first_solve

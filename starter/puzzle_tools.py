@@ -47,7 +47,6 @@ def depth_first_solve(puzzle):
                 
                 return node_child
 
-
 # TODO
 # implement breadth_first_solve
 # do NOT change the type contract

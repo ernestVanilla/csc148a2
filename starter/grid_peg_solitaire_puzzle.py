@@ -23,99 +23,127 @@ class GridPegSolitairePuzzle(Puzzle):
         assert all([all(x in marker_set for x in row) for row in marker])
         assert all([x == "*" or x == "." or x == "#" for x in marker_set])
         self._marker, self._marker_set = marker, marker_set
-        
+
     def __eq__(self, other):
-        return (self.marker == other.marker)
-    
+        return (self._marker == other._marker)
+
     def __str__(self):
-        pass
+        return "hi"
 
     # TODO
     # implement __eq__, __str__ methods
     # __repr__ is up to you
-    
-    def extentions(self):
-        
-        grid = self.marker
-        
+
+    def extensions(self):
+
+        grid = self._marker
+        extensions = []
+
         for row in range(len(grid)):
-            
+
             for column in range(len(grid[row])):
-                
+
                 if grid[row][column] == "*":
-                    
+
                     # Check for top if inbounds & if the item directly above it is a peg
-                    if grid[row - 2][column] > 0 and grid[row - 1][column] == "*":
-                        
+                    if (row - 2) > 0 and grid[row - 1][column] == "*":
+
                         if grid[row - 2][column] ==".":
-                            
+
                             grid[row - 2][column] = "*"
                             grid[row - 1][column] = "."
                             grid[row][column] = "."
-                    
+                            extension = GridPegSolitairePuzzle(grid, self._marker_set)
+                            extensions.append(extension)
+                            grid[row - 2][column] = "."
+                            grid[row - 1][column] = "*"
+                            grid[row][column] = "*"
+
                     # Check for bottom if inbounds & if the item directly below it is a peg
-                    if grid[row + 2][column] < len(grid) and grid[row + 1][column] == "*":
-                        
+                    if (row + 2) < (len(grid)-1) and grid[row + 1][column] == "*":
+
                         if grid[row + 2][column] == ".":
-                            
+
                             grid[row + 2][column] = "*"
                             grid[row + 1][column] = "."
                             grid[row][column] = "."
-                            
+                            extension = GridPegSolitairePuzzle(grid, self._marker_set)
+                            extensions.append(extension)
+                            grid[row + 2][column] = "."
+                            grid[row + 1][column] = "*"
+                            grid[row][column] = "*"
+
                     # Check for left if inbounds & if the item directly beside it is a peg
-                    if grid[row][column - 2] > 0 and grid[row][column - 1] == "*":
-                        
+                    if (column - 2) > 0 and grid[row][column - 1] == "*":
+
                         if grid[row][column - 2] == ".":
-                            
+
                             grid[row][column - 2] = "*"
                             grid[row][column - 1] = "."
                             grid[row][column] = "."
-                            
+                            extension = GridPegSolitairePuzzle(grid, self._marker_set)
+                            extensions.append(extension)
+                            grid[row][column - 2] = "."
+                            grid[row][column - 1] = "*"
+                            grid[row][column] = "*"
+
                     # Check for right if inbounds & if the item directly beside it is a peg
-                    if grid[row][column + 2] < len(grid[row]) and grid[row][column + 1] == "*":
-                        
+                    if (column + 2) < (len(grid[row])-1) and grid[row][column + 1] == "*":
+
                         if grid[row][column + 2] == ".":
-                            
+
                             grid[row][column + 2] = "*"
                             grid[row][column + 1] = "."
                             grid[row][column] = "."
-                            
+                            extension = GridPegSolitairePuzzle(grid, self._marker_set)
+                            extensions.append(extension)
+                            grid[row][column + 2] = "."
+                            grid[row][column + 1] = "*"
+                            grid[row][column] = "*"
+
+        return extensions
+
     def is_solved(self):
-        
-        grid = self.marker
-        
+        print("called")
+
+        grid = self._marker
+
         count = 0
-        
+
         for row in range(len(grid)):
-            
+
             for column in range(len(grid[row])):
-                
+
                 if grid[row][column] == "*":
-                    
+
                     count = count + 1
-                    
+
+        print("count:")
+        print(count)
         if count == 1:
             return True
         else:
             return False
 
 
-#if __name__ == "__main__":
-    #import doctest
+if __name__ == "__main__":
+    import doctest
 
-    #doctest.testmod()
-    #from puzzle_tools import depth_first_solve
+    doctest.testmod()
+    from puzzle_tools import breadth_first_solve
 
-    #grid = [["*", "*", "*", "*", "*"],
-            #["*", "*", "*", "*", "*"],
-            #["*", "*", "*", "*", "*"],
-            #["*", "*", ".", "*", "*"],
-            #["*", "*", "*", "*", "*"]]
-    #gpsp = GridPegSolitairePuzzle(grid, {"*", ".", "#"})
-    #import time
+    grid = [[".", ".", ".", ".", "."],
+            [".", ".", ".", ".", "."],
+            [".", "*", "*", ".", "."],
+            [".", ".", ".", ".", "."],
+            [".", ".", ".", ".", "."]]
+    gpsp = GridPegSolitairePuzzle(grid, {"*", ".", "#"})
+    import time
 
-    #start = time.time()
-    #solution = depth_first_solve(gpsp)
-    #end = time.time()
-    #print("Solved 5x5 peg solitaire in {} seconds.".format(end - start))
-    #print("Using depth-first: \n{}".format(solution))
+    print("yo")
+    print(gpsp.extensions())
+    start = time.time()
+    solution = breadth_first_solve(gpsp)
+    end = time.time()
+    print("Solved 5x5 peg solitaire in {} seconds.".format(end - start))
+    print("Using breadth-first: \n{}".format(solution))

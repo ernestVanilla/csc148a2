@@ -71,7 +71,7 @@ def breadth_first_solve(puzzle):
     # while puzzle still has moves to make (or is not solved yet)
     while len(queue) > 0:
 
-        current = queue[0] # update current node
+        current = queue.popleft() # update current node
         extensions = current.puzzle.extensions() # gather moves to make
 
         # loop through extensions (breadth)
@@ -87,7 +87,6 @@ def breadth_first_solve(puzzle):
                 if newNode.puzzle.is_solved():
                     return newNode
 
-        queue.popleft() # pop parent when all of its children are traversed
 
     return None # no solution was found
 

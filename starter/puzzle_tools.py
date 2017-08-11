@@ -40,13 +40,17 @@ def depth_first_solve(puzzle):
         # add the current node if it's not in the unique set
         if current_node not in tracker:
             
-            tracker.add(current_node)
-            
+            tracker.add(current_node)           
+        
         else:
+            
             # check if that unique node is a solution
             for i in tracker:
+                
                 if is_solved(i):
+                    
                     return i.extensions
+            
             return None # return nothing if there doesnt exist a solution
 
 # TODO

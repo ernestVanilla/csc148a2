@@ -138,6 +138,10 @@ if __name__ == "__main__":
         solution, end - start))
     start = time()
     solution = depth_first_solve((MNPuzzle(start_grid, target_grid)))
+    current = solution
+    while current:
+        print(current)
+        current = current.parent    
     end = time()
     print("DFS solved: \n\n{} \n\nin {} seconds".format(
         solution, end - start))

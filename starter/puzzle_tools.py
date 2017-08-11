@@ -25,27 +25,29 @@ def depth_first_solve(puzzle):
     @type puzzle: Puzzle
     @rtype: PuzzleNode
     """
-    root = puzzle.parent
-    
-    children = puzzle.extention
-    
     #Creating a stack using a deque; putting the root as the first element in the stack
     stack = deque([PuzzleNode(puzzle, [])])
     
-    tracker = set()   
+    tracker = set()
     
-    # while loop is use to 
+    # while loop is use to check if it is empty or not
     while len(stack) > 0:
         
-        new_node = stack.popleft()
+        current_node = stack[-1]
         
-        for n in new_node.puzzle.extention():
+        extensions = current_node.puzzle.extensions()
+        
+        # add the current node if it's not in the unique set
+        if current_node not in tracker:
             
-            node_child = PuzzleNode(n)
+            tracker.add(current_node)
             
-            if node_child.puzzle.is_solved():
-                
-                return node_child
+        else:
+            # check if that unique node is a solution
+            for i in tracker:
+                if is_solved(i):
+                    return i.extensions
+            return None # return nothing if there doesnt exist a solution
 
 # TODO
 # implement breadth_first_solve

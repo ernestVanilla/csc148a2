@@ -38,7 +38,10 @@ class WordLadderPuzzle(Puzzle):
 
     def extensions(self):
         
-        '''() -> list[Puzzle Objects]
+        '''set(str) -> list[Puzzle Objects]
+        
+        This function returns a list of the possible 
+        solutions for the word.
         '''
         # setting up variables
         extensions = []
@@ -71,15 +74,17 @@ class WordLadderPuzzle(Puzzle):
         '''() -> Bool
         This function checks to see if objective word has been reached.
         
-        >>>
+        >>> with open("words", "r") as words:
+                    word_set = set(words.read().split())
         
-        >>>
+        >>> w = WordLadderPuzzle("same", "cost", word_set)
         
-        >>>
+        >>> w.is_solved()
+            False
         '''
         return self._from_word == self._to_word
 
-
+'''
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
@@ -100,3 +105,4 @@ if __name__ == '__main__':
     print("Solving word ladder from same->cost")
     print("...using depth-first-search")
     print("Solutions: {} took {} seconds.".format(sol, end - start))
+'''

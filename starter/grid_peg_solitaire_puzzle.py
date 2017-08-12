@@ -34,14 +34,50 @@ class GridPegSolitairePuzzle(Puzzle):
         grid = self._marker
         s = ''
 
-
-        # helper method to add horizontal line
         def add_line(grid):
             
             '''(list[list[str]]) -> str
             
             This method adds horizontal lines to help
             with the visual representation.
+            
+            >>> grid = [["*", "*", "*", "*", "*"],
+                ["*", "*", "*", "*", "*"],
+                ["*", "*", "*", "*", "*"],
+                ["*", "*", ".", "*", "*"],
+                ["*", "*", "*", "*", "*"]]
+            
+            >>> gpsp = GridPegSolitairePuzzle(grid, {"*", ".", "#"})
+                
+            >>> print(gpsp)
+                
+            >>> -------------
+                | * * * * * |
+                | * * * * * |
+                | * * * * * |
+                | * * . * * |
+                | * * * * * |
+                -------------
+                    
+                
+            >>> grid = [["*", "*", "*", "*", "*"],
+                    ["*", "*", "*", "*", "*"],
+                    ["*", "*", "*", ".", "*"],
+                    ["*", ".", "*", "*", "*"],
+                    ["*", "*", "*", "*", "*"]]
+        
+            >>> gpsp = GridPegSolitairePuzzle(grid, {"*", ".", "#"})
+                
+            >>> print(gpsp)
+                
+            >>> -------------
+                | * * * * * |
+                | * * * * * |
+                | * * * . * |
+                | * . * * * |
+                | * * * * * |
+                -------------
+
             '''
             string = ''
             for i in range(len(grid[0])*2 + 3): # accounts for space alignment

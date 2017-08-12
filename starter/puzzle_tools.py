@@ -16,6 +16,7 @@ sys.setrecursionlimit(10**6)
 # do NOT change the type contract
 # you are welcome to create any helper functions
 # you like
+
 def depth_first_solve(puzzle):
     """
     Return a path from PuzzleNode(puzzle) to a PuzzleNode containing
@@ -25,33 +26,37 @@ def depth_first_solve(puzzle):
     @type puzzle: Puzzle
     @rtype: PuzzleNode
     """
-    #Creating a stack using a deque; putting the root as the first element in the stack
-    stack = deque([PuzzleNode(puzzle, [])])
-    
-    tracker = set()
-    
-    # while loop is use to check if it is empty or not
+    # instantiating stack using new PuzzleNode (root)
+    root = PuzzleNode(puzzle)
+    stack = deque([root])
+    tracker = deque([])
+
+    # while puzzle still has moves to make (or is not solved yet)
     while len(stack) > 0:
-        
-        current_node = stack[-1]
-        
-        extensions = current_node.puzzle.extensions()
-        
-        # add the current node if it's not in the unique set
-        if current_node not in tracker:
-            
-            tracker.add(current_node)           
-        
-        else:
-            
-            # check if that unique node is a solution
-            for i in tracker:
-                
-                if is_solved(i):
-                    
-                    return i.extensions
-            
-            return None # return nothing if there doesnt exist a solution
+
+        current = stack.pop() # update current node
+
+        # if child node is solved, return it
+        if current.puzzle.is_solved():
+            return newNode
+
+        if current not in tracker:
+
+            tracker.append(current)
+            extensions = current.puzzle.extensions() # gather moves to make
+
+            # loop through extensions (depth)
+            for i in range(len(extensions)):
+                newNode = PuzzleNode(extensions[i], [], current)
+                current.children.append(newNode) # add as child of current node
+                if newNode not in tracker:
+                    stack.append(newNode) # add to stack
+
+
+
+    return None # no solution was found
+
+
 
 # TODO
 # implement breadth_first_solve

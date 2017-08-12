@@ -37,6 +37,9 @@ class WordLadderPuzzle(Puzzle):
 
 
     def extensions(self):
+        
+        '''() -> list[Puzzle Objects]
+        '''
         # setting up variables
         extensions = []
         word = self._from_word
@@ -64,7 +67,16 @@ class WordLadderPuzzle(Puzzle):
 
 
     def is_solved(self):
-        # checks to see if objective word has been reached
+        
+        '''() -> Bool
+        This function checks to see if objective word has been reached.
+        
+        >>>
+        
+        >>>
+        
+        >>>
+        '''
         return self._from_word == self._to_word
 
 

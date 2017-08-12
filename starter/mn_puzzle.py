@@ -33,11 +33,31 @@ class MNPuzzle(Puzzle):
 
 
     def __str__(self):
+        
         grid = self.from_grid
         s = ''
 
-        # helper method to add horizontal line
         def add_line(grid):
+            
+            '''[tuple[tuple[str]]] -> str
+            
+            This method adds horizontal lines to help
+            with the visual representation.
+            
+            >>> target_grid = (("1", "2", "3"), ("4", "5", "*"))
+            
+            >>> start_grid = (("*", "2", "3"), ("1", "4", "5"))
+            
+            >>> solution = MNPuzzle(start_grid, target_grid)
+            
+            >>> print(solution)
+            
+            >>> ---------
+                | * 2 3 |
+                | 1 4 5 |
+                ---------
+            '''            
+            
             string = ''
             for i in range(len(grid[0])*2 + 3): # accounts for space alignment
                 string += '-'
@@ -56,16 +76,39 @@ class MNPuzzle(Puzzle):
 
 
     def extensions(self):
+        
+        '''[tuple[tuple[str]] -> list[Puzzle Objects]
+        
+        This function returns the legal possible moves
+        the puzzle can make.
+        
+        >>> target_grid = (("1", "2", "3"), ("4", "5", "*"))
+        
+        >>> start_grid = (("*", "2", "3"), ("1", "4", "5"))
+        
+        >>> solution = MNPuzzle(start_grid, target_grid)
+        
+        >>> solution.extensions()
+        
+        >>> [<__main__.MNPuzzle object at 0x01CE1D50>, <__main__.MNPuzzle object at 0x01CE1AF0>]
+        '''
 
         grid = self.from_grid
         extensions = []
 
-        # Helper method which creates extension
         def rebuildGrid(grid, spaceX, spaceY, tileX, tileY):
+            
+            '''[tuple[tuple[str]] -> list[Puzzle Objects]
+            
+            This helper function creates the extension.
+            '''
+            
             tile = grid[tileY][tileX] # keeps track of tile value
+            
             newGrid = (())
 
             for row in range(len(grid)):
+                
                 newRow = []
 
                 # switches the tile and space values
@@ -121,9 +164,24 @@ class MNPuzzle(Puzzle):
 
 
     def is_solved(self):
+        
+        '''[tuple[tuple[str]] -> Bool
+        
+        This function checks whether the
+        puzzle is in the solved state
+        or not.
+        
+        >>> target_grid = (("1", "2", "3"), ("4", "5", "*"))
+        
+        >>> start_grid = (("*", "2", "3"), ("1", "4", "5"))
+        
+        >>> solution = MNPuzzle(start_grid, target_grid)
+        
+        >>> solution.is_solved()
+            False
+        '''
         return self.from_grid == self.to_grid
-
-
+'''
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
@@ -136,7 +194,7 @@ if __name__ == "__main__":
     end = time()
     print("BFS solved: \n\n{} \n\nin {} seconds".format(
         solution, end - start))
-    start = time()
+    start = time()   
     solution = depth_first_solve((MNPuzzle(start_grid, target_grid)))
     current = solution
     while current:
@@ -145,3 +203,4 @@ if __name__ == "__main__":
     end = time()
     print("DFS solved: \n\n{} \n\nin {} seconds".format(
         solution, end - start))
+        '''

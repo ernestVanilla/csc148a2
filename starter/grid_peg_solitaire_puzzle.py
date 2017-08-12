@@ -114,6 +114,8 @@ class GridPegSolitairePuzzle(Puzzle):
     
     >>> gpsp.extensions()
     
+    >>> [<__main__.GridPegSolitairePuzzle object at 0x01CE1C70>, <__main__.GridPegSolitairePuzzle object at 0x01CE1AB0>, <__main__.GridPegSolitairePuzzle   object at 0x01CE1950>]
+    
     
     >>> grid = [["*", "*", "*", "*", "*"],
             ["*", "*", "*", "*", "*"],
@@ -124,6 +126,8 @@ class GridPegSolitairePuzzle(Puzzle):
     >>> gpsp = GridPegSolitairePuzzle(grid, {"*", ".", "#"})
     
     >>> gpsp.extensions()
+    
+    >>> [<__main__.GridPegSolitairePuzzle object at 0x01CE1A50>, <__main__.GridPegSolitairePuzzle object at 0x01CE1910>, <__main__.GridPegSolitairePuzzle object at 0x01CE17D0>, <__main__.GridPegSolitairePuzzle object at 0x019E5D10>, <__main__.GridPegSolitairePuzzle object at 0x01CE19B0>]
         '''
 
         grid = self._marker
@@ -250,7 +254,7 @@ class GridPegSolitairePuzzle(Puzzle):
         else:
             return False
 
-'''
+
 if __name__ == "__main__":
     import doctest
 
@@ -270,4 +274,3 @@ if __name__ == "__main__":
     end = time.time()
     print("Solved 5x5 peg solitaire in {} seconds.".format(end - start))
     print("Using depth-first: \n{}".format(solution))
-    '''

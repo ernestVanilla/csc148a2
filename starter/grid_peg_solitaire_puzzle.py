@@ -25,15 +25,24 @@ class GridPegSolitairePuzzle(Puzzle):
         assert all([x == "*" or x == "." or x == "#" for x in marker_set])
         self._marker, self._marker_set = marker, marker_set
 
+    
     def __eq__(self, other):
         return (self._marker == other._marker)
+
 
     def __str__(self):
         grid = self._marker
         s = ''
 
+
         # helper method to add horizontal line
         def add_line(grid):
+            
+            '''(list[list[str]]) -> str
+            
+            This method adds horizontal lines to help
+            with the visual representation.
+            '''
             string = ''
             for i in range(len(grid[0])*2 + 3): # accounts for space alignment
                 string += '-'
@@ -50,11 +59,36 @@ class GridPegSolitairePuzzle(Puzzle):
         s += add_line(grid)
         return s
 
-    # TODO
-    # implement __eq__, __str__ methods
-    # __repr__ is up to you
 
     def extensions(self):
+        
+        '''(list[Puzzle]) -> list[Puzzle Objects]
+        
+        This function returns a list of the possible 
+        solutions for Peg Solitaire puzzle.
+        
+        
+    >>> grid = [["*", "*", "*", "*", "*"],
+            ["*", "*", "*", "*", "*"],
+            ["*", "*", "*", "*", "*"],
+            ["*", "*", ".", "*", "*"],
+            ["*", "*", "*", "*", "*"]]
+            
+    >>> gpsp = GridPegSolitairePuzzle(grid, {"*", ".", "#"})
+    
+    >>> gpsp.extensions()
+    
+    
+    >>> grid = [["*", "*", "*", "*", "*"],
+            ["*", "*", "*", "*", "*"],
+            ["*", "*", "*", ".", "*"],
+            ["*", ".", "*", "*", "*"],
+            ["*", "*", "*", "*", "*"]]
+            
+    >>> gpsp = GridPegSolitairePuzzle(grid, {"*", ".", "#"})
+    
+    >>> gpsp.extensions()
+        '''
 
         grid = self._marker
         extensions = []
@@ -63,6 +97,7 @@ class GridPegSolitairePuzzle(Puzzle):
 
             for column in range(len(grid[row])):
 
+                # Checking the indexs of each row + column if there is a existing peg
                 if grid[row][column] == "*":
 
                     # Check for top if inbounds & if the item directly above it is a peg
@@ -124,19 +159,52 @@ class GridPegSolitairePuzzle(Puzzle):
                             extensions.append(extension)
                             dup = None
 
-
         return extensions
 
+
     def is_solved(self):
+        
+        ''' (Puzzle) -> Bool
+        
+        The purpose of this function is to check
+        whether there exist at most 1 peg remaining
+        on the grid; if the condition holds then the
+        player has won the game.
+        
+    >>> grid = [["*", "*", "*", "*", "*"],
+            ["*", "*", "*", "*", "*"],
+            ["*", "*", "*", "*", "*"],
+            ["*", "*", ".", "*", "*"],
+            ["*", "*", "*", "*", "*"]]
+    
+    >>> gpsp = GridPegSolitairePuzzle(grid, {"*", ".", "#"})
+    
+    >>> gpsp.is_solved()
+        False
+     
+     
+    >>> grid = [[".", ".", ".", ".", "."], 
+            [".", ".", "*", ".", "."], 
+            [".", ".", ".", ".", "."], 
+            [".", ".", ".", ".", "."], 
+            [".", ".", ".", ".", "."]]  
+            
+    >>> gpsp = GridPegSolitairePuzzle(grid, {"*", ".", "#"})
+    
+    >>> gpsp.is_solved()
+        True
+        '''
 
         grid = self._marker
 
         count = 0
-
+        
+        # Nested loop to traverse across the grid indexes
         for row in range(len(grid)):
 
             for column in range(len(grid[row])):
-
+                
+                # Checks for any remaining pegs on the grid
                 if grid[row][column] == "*":
 
                     count = count + 1
@@ -146,7 +214,7 @@ class GridPegSolitairePuzzle(Puzzle):
         else:
             return False
 
-
+'''
 if __name__ == "__main__":
     import doctest
 
@@ -166,3 +234,4 @@ if __name__ == "__main__":
     end = time.time()
     print("Solved 5x5 peg solitaire in {} seconds.".format(end - start))
     print("Using depth-first: \n{}".format(solution))
+    '''

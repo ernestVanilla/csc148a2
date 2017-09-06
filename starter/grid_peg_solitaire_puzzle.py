@@ -1,7 +1,7 @@
 from puzzle import Puzzle
 import copy
 
-
+#Test
 class GridPegSolitairePuzzle(Puzzle):
     """
     Snapshot of peg solitaire on a rectangular grid. May be solved,
